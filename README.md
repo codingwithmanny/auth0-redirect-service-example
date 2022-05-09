@@ -2,6 +2,13 @@
 
 An example service with a single redirect service handling state for the redirect to the appropriate application. It uses docker as a proxy service to handle https for domain names.
 
+It uses the following libraries to demonstrate how redirects can work with the following frameworks & libraries:
+
+- NodeJS + TypeScript - `api.localdomain.com`
+- NextJS - `localdomain.com`
+- ViteJS + React + TypeScript - `sub.localdomain.com`
+- CRA + TypeScript - `www.localdomain.com`
+
 ---
 
 ## Requirements
@@ -70,7 +77,7 @@ docker compose down --remove-orphans -v;
 
 ---
 
-## Sub Main Domain Add Auth0 Keys
+## Add Environment Variables
 
 ```
 cp packages/api.localdomain.com/.env.example packages/api.localdomain.com/.env;
@@ -116,9 +123,24 @@ VITE_AUTH0_REDIRECT_URI_WEBAUTH="https://sub.localdomain.com"
 VITE_AUTH0_RESPONSE_MODE="form_post"
 ```
 
+**File:** `packages/www.localdomain.com/.env`
+
+```
+REACT_APP_AUTH0_DOMAIN="<YOUR-AUTH0-DOMAIN>"
+REACT_APP_AUTH0_DOMAIN_CLIENT_ID="<YOUR-AUTH0-CLIENT-ID>"
+REACT_APP_AUTH0_AUDIENCE="<YOUR-AUTH0-AUDIENCE>"
+REACT_APP_AUTH0_SCOPE="openid profile email"
+REACT_APP_AUTH0_RESPONSE_TYPE="token id_token"
+REACT_APP_AUTH0_REDIRECT_URI_AUTHORIZE="https://api.localdomain.com"
+REACT_APP_AUTH0_REDIRECT_URI_WEBAUTH="https://www.localdomain.com"
+REACT_APP_AUTH0_RESPONSE_MODE="form_post"
+```
+
 ---
 
 ## Build & Serve
+
+**NOTE:** In order for the proxy with Docker to work you can _NOT_ use ViteJS or CRA in development mode with HMR (Hot Module Replacement)
 
 ```bash
 yarn dev;

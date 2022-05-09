@@ -6,13 +6,17 @@ upstream subdomain {
   server host.docker.internal:3001;
 }
 
+upstream altdomain {
+  server host.docker.internal:3002;
+}
+
 upstream authdomain {
   server host.docker.internal:5001;
 }
 
 map $http_host $server {
   localdomain.com       domain;
-  www.localdomain.com   domain;
+  www.localdomain.com   altdomain;
   sub.localdomain.com   subdomain;
   api.localdomain.com   authdomain;
 }

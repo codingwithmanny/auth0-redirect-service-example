@@ -15,6 +15,7 @@
   },
   "workspaces": [
     "packages/localdomain.com",
+    "packages/www.localdomain.com",
     "packages/sub.localdomain.com",
     "packages/api.localdomain.com"
   ]
