@@ -1,0 +1,16 @@
+{
+  "USERS": {
+    "ERROR": {
+      "CREATE": {
+        "DUPLICATE": "Email already in use."
+      },
+      "READ": {
+        "NOT_FOUND": "User not found."
+      },
+      "UPDATE": {
+        "USERNAME": "Username name is already set.",
+        "DUPLICATE": "Email already in use."
+      }
+    }
+  }
+}

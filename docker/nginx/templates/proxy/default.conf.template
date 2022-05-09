@@ -1,0 +1,68 @@
+upstream domain {
+  server host.docker.internal:3000;
+}
+
+upstream subdomain {
+  server host.docker.internal:3001;
+}
+
+upstream authdomain {
+  server host.docker.internal:5001;
+}
+
+map $http_host $server {
+  localdomain.com       domain;
+  www.localdomain.com   domain;
+  sub.localdomain.com   subdomain;
+  api.localdomain.com   authdomain;
+}
+
+server {
+    listen       80;
+    listen  [::]:80;
+    server_name  localhost;
+    listen 443 ssl http2 default_server;
+    listen [::]:443 ssl http2 default_server;
+    ssl_certificate /tmp/nginx-selfsigned.crt;
+    ssl_certificate_key /tmp/nginx-selfsigned.key;
+
+    #access_log  /var/log/nginx/host.access.log  main;
+
+    location / {
+        root   /usr/share/ngcdinx/html;
+        index  index.html index.htm;
+        proxy_pass http://$server;
+    }
+
+    #error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #    root           html;
+    #    fastcgi_pass   127.0.0.1:9000;
+    #    fastcgi_index  index.php;
+    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+    #    include        fastcgi_params;
+    #}
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}

@@ -1,0 +1,21 @@
+{
+  "version": "0.1.0",
+  "name": "auth0-redirect-service-example",
+  "author": "@codingwithmanny",
+  "repository": "https://github.com/codingwithmanny/auth0-redirect-service-example",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "lerna run dev --stream --parallel",
+    "release": "standard-version"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0",
+    "standard-version": "^9.3.2"
+  },
+  "workspaces": [
+    "packages/localdomain.com",
+    "packages/sub.localdomain.com",
+    "packages/api.localdomain.com"
+  ]
+}

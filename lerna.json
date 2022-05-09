@@ -1,0 +1,6 @@
+{
+  "packages": ["packages/localdomain.com", "packages/sub.localdomain.com", "package/api.localdomain.com"],
+  "npmClient": "yarn",
+  "version": "0.0.0",
+  "useWorkspaces": true
+}

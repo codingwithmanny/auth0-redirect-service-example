@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  proxy:
+    container_name: proxy
+    image: nginx:alpine
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./docker/nginx/templates/proxy:/etc/nginx/templates
+      - ./certs:/tmp
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
